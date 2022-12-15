@@ -14,7 +14,31 @@ use Illuminate\Support\Facades\Route;
 */
 
 // Example Routes
-Route::view('/', 'landing');
+Route::view('/', 'home')->name('home');
+Route::view('/register-student', 'student-register')->name('student.register');
+Route::view('/register-school', 'school-register')->name('school.register');
+Route::view('/login', 'login')->name('login');
+Route::view('/forgot-password', 'forgot-password')->name('password.reset');
+Route::view('/new-password', 'new-password')->name('password.new');
+
+/*
+|--------------------------------------------------------------------------
+| School Admin Routes
+|--------------------------------------------------------------------------
+*/
+
+Route::prefix('/school')->group(function () {
+
+    Route::view('/', 'school-profile')
+        ->name('school.profile');
+
+    Route::prefix('course')->group(function () {
+
+        Route::view('/','new-course')
+            ->name('course.new');
+    });
+});
+
 Route::match(['get', 'post'], '/dashboard', function(){
     return view('dashboard');
 });
