@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,35 +14,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Example Routes
-Route::view('/', 'home')->name('home');
-Route::view('/register-student', 'student-register')->name('student.register');
-Route::view('/register-school', 'school-register')->name('school.register');
-Route::view('/login', 'login')->name('login');
-Route::view('/forgot-password', 'forgot-password')->name('password.reset');
-Route::view('/new-password', 'new-password')->name('password.new');
-
-/*
-|--------------------------------------------------------------------------
-| School Admin Routes
-|--------------------------------------------------------------------------
-*/
-
-Route::prefix('/school')->group(function () {
-
-    Route::view('/', 'school-profile')
-        ->name('school.profile');
-
-    Route::prefix('course')->group(function () {
-
-        Route::view('/','new-course')
-            ->name('course.new');
-    });
+Route::get('/', function () {
+    return view('welcome');
 });
 
-Route::match(['get', 'post'], '/dashboard', function(){
+Route::get('/dashboard', function () {
     return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
-Route::view('/pages/slick', 'pages.slick');
-Route::view('/pages/datatables', 'pages.datatables');
-Route::view('/pages/blank', 'pages.blank');
+
+require __DIR__.'/auth.php';

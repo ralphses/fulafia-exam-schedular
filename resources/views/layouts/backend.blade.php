@@ -34,7 +34,8 @@
 
     <!-- Stylesheets -->
     <!-- OneUI framework -->
-{{--    <link rel="stylesheet" id="css-main" href="assets/css/oneui.min.css">--}}
+    <link rel="stylesheet" href={{ asset("js/plugins/select2/css/select2.min.css") }}>
+    <link rel="stylesheet" id="css-main" href={{ asset("css/oneui.min.css") }}>
 
     <!-- You can include a specific file from css/themes/ folder to alter the default color theme of the template. eg: -->
     <!-- <link rel="stylesheet" id="css-theme" href="assets/css/themes/amethyst.min.css"> -->
@@ -49,7 +50,14 @@
     @yield('content')
 
 </div>
+<script src="{{ asset("js/oneui.app.min.js") }}"></script>
+<script src="{{ asset("js/lib/jquery.min.js") }}"></script>
+<script src="{{ asset("js/plugins/select2/js/select2.full.min.js") }}"></script>
+<script src="{{ asset("js/plugins/jquery-validation/jquery.validate.min.js") }}"></script>
+<script src="{{ asset("js/plugins/jquery-validation/additional-methods.js") }}"></script>
+<script>One.helpersOnLoad(['jq-select2']);</script>
+<script src="{{ asset("js/pages/be_forms_validation.min.js") }}"></script>
 
-{{--<script src="assets/js/oneui.app.min.js"></script>--}}
+
 </body>
 </html>
